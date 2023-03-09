@@ -25,7 +25,27 @@ function binaryJump(arr, point) {
 }
 
 // Interpolation Search
+function binaryInterpol(arr, point){
+    let lo = 0;
+    let hi = arr.length-1;
+    let position = -1;
+    let change = -1;
 
+    while(lo <= hi && point >= arr[lo] && point <= arr[hi]) {
+        change = (point - arr[lo])/(arr[hi])-(arr[lo]);
+        position = lo + Math.floor((hi-lo)*change);
+        if(arr[position] == point) {
+            return position;
+        }  else
+        if(arr[position] < point) {
+            lo = position + 1;
+        } else {
+            hi = position - 1;
+        }
+    }   
+    return "Not found";
+
+}
 
 
 // Fibonacci Search
