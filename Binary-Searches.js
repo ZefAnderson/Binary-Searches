@@ -25,7 +25,7 @@ function binaryJump(arr, point) {
 }
 
 // Interpolation Search
-function binaryInterpol(arr, point){
+function binaryInterpol(arr, point) {
     let lo = 0;
     let hi = arr.length-1;
     let position = -1;
@@ -46,6 +46,37 @@ function binaryInterpol(arr, point){
     return "Not found";
 
 }
-
-
 // Fibonacci Search
+function binaryFib(arr, point) {
+    let len = arr.length;
+    let fib1 = 0;
+    let fib2 = 1;
+    let fib3 = fib1 + fib2;
+
+    while( fib3 < len) {
+        fib1 = fib2;
+        fib2 = fib3;
+        fib3 = fib1 + fib2;
+    }
+    let offset = len - 1;
+    while(fib3 > 1) {
+        let i = Math.min(offset + fib2, len - 1);
+        if(arr[i] < point) {
+            fib3 = fib2;
+            fib2 = fib1;
+            fib1 = fib3 - fib2;
+            offset = i;
+        } else if (arr[i] > point) {
+            fib3 = fib1;
+            fib2 = fib2 - fib1;
+            fib1 = fib3 - fib2;
+        } else {
+            return i + 1;
+        }
+    }
+    if(fib2 === 1 && arr[offset + 1] === point){
+        return offset + 1;
+    } else {
+        return "Not found";
+    }
+}
