@@ -1,3 +1,42 @@
+class Node {
+    constructor(key) {
+        this.key = key;
+        this.right = null;
+        this.left = null;
+    }
+}
+
+class BinarySearchTree {
+    constructor() {
+      this.head = null;
+    }
+
+    ins(key){
+        this.head = insert(head, key)
+    }
+
+    insert(key) {
+        if(this.head == null) {
+            this.head = new BinarySearchTree(key);
+            return this.head;
+        }
+        if(key < this.head.key){
+            this.head.left = ins(key)
+        } else if (this.head > key) {
+            this.head.right = ins(key)
+        }
+        return this.head;
+    }
+
+    find(key) {
+        if(this.head == null || this.head.key == key)
+            return this.head;
+        if(this.head.key < key)
+            return find(this.right, key);
+        return find(this.left, key);        
+    }
+}
+
 // Jump Search
 
 function binaryJump(arr, point) {
