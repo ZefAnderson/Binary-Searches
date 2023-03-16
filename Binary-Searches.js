@@ -38,9 +38,9 @@ class BinarySearchTree {
     find(data) {
         let currNode = this.root;
         while (currNode !== null) {
-           if (currNode.key === data) {
+           if (currNode.data === data) {
               return true;
-           } else if (data < currNode.key) {
+           } else if (data < currNode.data) {
               currNode = currNode.left;
            } else {
               currNode = currNode.right;
