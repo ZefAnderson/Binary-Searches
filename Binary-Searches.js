@@ -1,6 +1,6 @@
 class Node {
-    constructor(key) {
-        this.key = key;
+    constructor(data) {
+        this.data = data;
         this.right = null;
         this.left = null;
     }
@@ -8,37 +8,49 @@ class Node {
 
 class BinarySearchTree {
     constructor() {
-      this.head = null;
+      this.root = null;
     }
 
-    ins(key){
-        this.head = insert(head, key)
-    }
+    insert(data) {
+        let newNode = new Node(data);
+        if(this.root === null){
+            this.root = newNode;
+        } else {
+            this.insertNode(this.root, newNode);
+        };
+    };
+    insertNode(node, newNode){
+        if(newNode.data < node.data){
+           if(node.left === null){
+              node.left = newNode;
+           }else{
+              this.insertNode(node.left, newNode);
+           };
+        } else {
+           if(node.right === null){
+              node.right = newNode;
+           }else{
+              this.insertNode(node.right,newNode);
+           };
+        };
+     };
 
-    insert(key) {
-        if(this.head == null) {
-            this.head = new BinarySearchTree(key);
-            return this.head;
+    find(data) {
+        let currNode = this.root;
+        while (currNode !== null) {
+           if (currNode.key === data) {
+              return true;
+           } else if (data < currNode.key) {
+              currNode = currNode.left;
+           } else {
+              currNode = currNode.right;
+           }
         }
-        if(key < this.head.key){
-            this.head.left = ins(key)
-        } else if (this.head > key) {
-            this.head.right = ins(key)
-        }
-        return this.head;
-    }
-
-    find(key) {
-        if(this.head == null || this.head.key == key)
-            return this.head;
-        if(this.head.key < key)
-            return find(this.right, key);
-        return find(this.left, key);        
+        return false;
     }
 }
 
 // Jump Search
-
 function binaryJump(arr, point) {
     let k = Math.floor(Math.sqrt(arr.length));
     let start = 0;
@@ -72,10 +84,10 @@ function binaryInterpol(arr, point) {
 
     while(lo <= hi && point >= arr[lo] && point <= arr[hi]) {
         change = (point - arr[lo])/(arr[hi])-(arr[lo]);
-        position = lo + Math.floor((hi-lo)*change);
-        if(arr[position] == point) {
+        position = lo + Math.floor((hi-lo) * change);
+        if(arr[position] === point) {
             return position;
-        }  else
+        }
         if(arr[position] < point) {
             lo = position + 1;
         } else {
